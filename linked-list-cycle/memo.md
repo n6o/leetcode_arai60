@@ -44,3 +44,36 @@ func hasCycle(head *ListNode) bool {
     return false
 }
 ```
+
+---
+
+## Step2
+
+- `for` の条件式を「fast の指すノードと次のノードが `nil` でない」とするとスッキリ書ける。
+- fast と slow を同時に初期化してる解答もあった。
+- コメントを書くとしたら変数の初期化の箇所だろうか
+
+```go
+/**
+ * Definition for singly-linked list.
+ * type ListNode struct {
+ *     Val int
+ *     Next *ListNode
+ * }
+ */
+func hasCycle(head *ListNode) bool {
+    // Move fast pointer by two steps
+    fast, slow := head, head
+
+    for fast != nil && fast.Next != nil {
+        fast = fast.Next.Next
+        slow = slow.Next
+
+        if fast == slow {
+            return true
+        }
+    }
+
+    return false
+}
+```
