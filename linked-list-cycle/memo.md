@@ -11,6 +11,7 @@
 - 方針
     - 2ポインタを使えば解けることを知っていた
         - 周回遅れを見つけたらいい
+        - フロイドの循環検出法と呼ばれている
     - 他の解法はないか考える
         - map で管理ができそうだけど、ノードの値が重複してたら誤検出する？
             - 制約はなさそう
@@ -137,3 +138,22 @@ func hasCycle(head *ListNode) bool {
     return false
 }
 ```
+
+---
+
+## 補足
+
+- [実行時間の概算について](https://github.com/Yuto729/LeetCode_arai60/pull/16#discussion_r2602118324)
+    - Go は C++ より4倍くらい遅い
+    - 概算: 2000万~2億ステップ/秒と思っておく
+- [変数名中の英単語の省略については](https://github.com/hemispherium/LeetCode_Arai60/pull/10#discussion_r2618518592)
+- goのポインタはuintptrで、アドレスを表現するのに十分な幅を持つ符号なし整数
+    - [ドキュメント](https://go.dev/ref/spec#Numeric_types) には具体的な値は記載されていなかった
+    - サイズはCPUアーキテクチャごとに異なるらしい
+    - 64bit環境なら 64bit = 8byte らしい
+        - [Go Playground](https://go.dev/play/p/TS2_rcQ1SQX) だと `8` だった
+    - Bool のサイズは 1byte
+    - 今回全ノードの情報がmapに保存されたとすると 9*10^4 byte = 90KB 程度必要となる
+- [変数名について](https://github.com/Hiroto-Iizuka/coding_practice/pull/1#discussion_r2642270692)
+    - `currentNode` ではなく `node` で十分伝わると思った
+    - `読む助けになる情報がない`
