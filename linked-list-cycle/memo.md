@@ -14,6 +14,7 @@
     - 他の解法はないか考える
         - map で管理ができそうだけど、ノードの値が重複してたら誤検出する？
             - 制約はなさそう
+            - ポインタで比較しているから、それを map に保存すれば検出できる
 
 
 ```go
@@ -100,6 +101,37 @@ func hasCycle(head *ListNode) bool {
         if fast == slow {
             return true
         }
+    }
+
+    return false
+}
+```
+
+---
+
+## map バージョン
+
+- 空間計算量はO(n)になる
+
+```go
+/**
+ * Definition for singly-linked list.
+ * type ListNode struct {
+ *     Val int
+ *     Next *ListNode
+ * }
+ */
+func hasCycle(head *ListNode) bool {
+    seen := map[*ListNode]bool{}
+
+    currentNode := head
+    for currentNode != nil {
+        if seen[currentNode] {
+            return true
+        }
+
+        seen[currentNode] = true
+        currentNode = currentNode.Next
     }
 
     return false
