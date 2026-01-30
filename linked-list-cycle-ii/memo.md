@@ -52,6 +52,7 @@ func detectCycle(head *ListNode) *ListNode {
         - これを解くと a = c となる
             - a: head から出会ったノードまでのノード数
             - c: 出会ったノードからサイクルの起点までのノード数
+            - fastがサイクルをn周して出会う場合も同様
         - だから片方を head に戻して同じだけ進めれば、サイクルの起点で出会うはず
         - 思いつけないな
 
@@ -106,5 +107,78 @@ func detectCycle(head *ListNode) *ListNode {
     }
 
     return nil
+}
+```
+
+---
+
+- ネストを浅くする
+- 変数名を意味のあるものにする
+
+```go
+func detectCycle(head *ListNode) *ListNode {
+    fast := head
+    slow := head
+    var met bool
+
+    for fast != nil && fast.Next != nil {
+        fast = fast.Next.Next
+        slow = slow.Next
+
+        if fast == slow {
+            met = true
+            break
+        }
+    }
+
+    if !met {
+        return nil
+    }
+
+    fromHead := head
+    fromMeet := fast
+    for fromHead != fromMeet {
+        fromHead = fromHead.Next
+        fromMeet = fromMeet.Next
+    }
+
+    return fromHead
+}
+```
+
+- 無限ループを使って書ける
+    - met が要らなくなる
+    - ぱっと見で少し驚く気がする
+        - どちらを選ぶかと言われると、 met 使うコードを採用すると思う
+            - 処理が素直に追えるから
+
+```go
+func detectCycle(head *ListNode) *ListNode {
+    fast := head
+    slow := head
+
+    for {
+        // There is no cycle.
+        if fast == nil || fast.Next == nil {
+            return nil
+        }
+
+        fast = fast.Next.Next
+        slow = slow.Next
+
+        // Detected.
+        if fast == slow {
+            break
+        }
+    }
+
+    fromHead := head
+    fromMeet := fast
+    for fromHead != fromMeet {
+        fromHead = fromHead.Next
+        fromMeet = fromMeet.Next
+    }
+
+    return fromHead
 }
 ```
