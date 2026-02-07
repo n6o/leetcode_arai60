@@ -205,6 +205,7 @@ func (h *minPairHeap) Pop() any {
 - [373_find_k_pairs_with_smallest_sums by Hiroto-Iizuka · Pull Request #10 · Hiroto-Iizuka/coding_practice](https://github.com/Hiroto-Iizuka/coding_practice/pull/10)
 - [373. Find K Pairs with Smallest Sums by mamo3gr · Pull Request #10 · mamo3gr/arai60](https://github.com/mamo3gr/arai60/pull/10)
 - [コメント集](https://docs.google.com/document/d/11HV35ADPo9QxJOpJQ24FcZvtvioli770WWdZZDaLOfg/edit?tab=t.0#heading=h.527w0lse8gbd)
+    - [意図と操作の距離](https://github.com/TORUS0818/leetcode/pull/12#discussion_r1697964514)
 
 ## Step3
 
