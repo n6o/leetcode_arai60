@@ -274,3 +274,71 @@ func (h *minPairHeap) Pop() any {
     return x
 }
 ```
+
+## レビュー反映版
+
+```go
+import "container/heap"
+
+func kSmallestPairs(nums1 []int, nums2 []int, k int) [][]int {
+    minPairCandidates := &minPairHeap{}
+    heap.Init(minPairCandidates)
+
+    for i := range nums1 {
+        heap.Push(minPairCandidates, indexPairAndSum{
+            index1: i,
+            index2: 0,
+            sum: nums1[i] + nums2[0],
+        })
+    }
+
+    smallestPairs := make([][]int, 0, k)
+    for len(smallestPairs) < k && minPairCandidates.Len() > 0 {
+        minPair := heap.Pop(minPairCandidates).(indexPairAndSum)
+        smallestPairs = append(smallestPairs, []int{ nums1[minPair.index1], nums2[minPair.index2] })
+
+        nextIndex2 := minPair.index2 + 1
+        if nextIndex2 < len(nums2) {
+            heap.Push(minPairCandidates, indexPairAndSum{
+                index1: minPair.index1,
+                index2: nextIndex2,
+                sum: nums1[minPair.index1] + nums2[nextIndex2],
+            })
+        }
+    }
+
+    return smallestPairs
+}
+
+type indexPairAndSum struct {
+    index1 int
+    index2 int
+    sum int
+}
+
+type minPairHeap []indexPairAndSum
+
+func (h minPairHeap) Len() int {
+    return len(h)
+}
+
+func (h minPairHeap) Less(i, j int) bool {
+    return h[i].sum < h[j].sum
+}
+
+func (h minPairHeap) Swap(i, j int) {
+    h[i], h[j] = h[j], h[i]
+}
+
+func (h *minPairHeap) Push(x any) {
+    *h = append(*h, x.(indexPairAndSum))
+}
+
+func (h *minPairHeap) Pop() any {
+    old := *h
+    n := len(old)
+    x := old[n-1]
+    *h = old[:n-1]
+    return x
+}
+```
