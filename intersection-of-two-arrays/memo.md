@@ -121,6 +121,8 @@ func toIntSet(nums []int) map[int]struct{} {
 - [349_intersection_of_two_arrays by Hiroto-Iizuka · Pull Request #13 · Hiroto-Iizuka/coding_practice](https://github.com/Hiroto-Iizuka/coding_practice/pull/13)
 - [コメント集](https://docs.google.com/document/d/11HV35ADPo9QxJOpJQ24FcZvtvioli770WWdZZDaLOfg/edit?tab=t.0#heading=h.o0jquy48e6cy)
 
+他の方針で実装してみる
+
 #### 2ポインタを利用する方法
 
 - `nums1` と `nums2` をソートし、重複を排除する
@@ -177,6 +179,9 @@ func sortAndCompact(nums []int) []int {
 #### 2分探索を利用する方法
 
 - `nums1` (短い方)をソートし、重複を排除する
+    - 長さの違いが大きい場合に効果的とのこと
+        - 長くてもソートなどをしなくてもいい
+    - 長い方は重複排除しないため、別途管理する必要がある
 - 時間計算量
     - コピー: O(Ns)
     - ソート: O(Ns log Ns)
