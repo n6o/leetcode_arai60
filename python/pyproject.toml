@@ -11,3 +11,15 @@ dev = [
     "ruff>=0.15.4",
     "ty>=0.0.20",
 ]
+
+[tool.ruff.lint]
+extend-select = [
+    "ANN001",
+    "ANN201",
+    "ANN202",
+
+    "RET501",
+    "RET502",
+    "RET503",
+    "RET505",
+]
